@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
+import IconButtonWithBadge from "./Badge";
 
 export default function Navbar({ cartCount }) {
   return (
@@ -13,7 +14,7 @@ export default function Navbar({ cartCount }) {
             <Button> Shop</Button>
           </Link>
         </div>
-        <span>Cart: {cartCount} </span>
+        <IconButtonWithBadge cartCount={cartCount} />
       </div>
     </nav>
   );
