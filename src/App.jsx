@@ -8,6 +8,10 @@ import { Suspense, useState } from "react";
 function App() {
   const [cart, setCart] = useState([]);
 
+  const addToCart = (product, quantity) => {
+    setCart([...cart, { ...product, quantity }]);
+  };
+
   return (
     <div className="App">
       <HashRouter>
@@ -15,7 +19,7 @@ function App() {
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/Shop" element={<ShopPage />} />
+            <Route path="/Shop" element={<ShopPage addToCart={addToCart} />} />
           </Routes>
         </Suspense>
       </HashRouter>
