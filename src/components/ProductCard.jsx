@@ -4,11 +4,28 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import TextField from "@mui/material/TextField";
 
 const ProductCard = ({ products, addToCart }) => {
-  const [quantity, setQuantity] = useState(1);
+  const [quantities, setQuantities] = useState({});
 
-  const increment = () => setQuantity(quantity + 1);
-  const decrement = () => setQuantity(quantity > 1 ? quantity - 1 : 1);
+  const handleQuantityChange = (id, value) => {
+    setQuantities((prev) => ({
+      ...prev,
+      [id]: value ? Math.max(1, parseInt(value)) : 1,
+    }));
+  };
 
+  const increment = (id) => {
+    setQuantities((prev) => ({
+      ...prev,
+      [id]: (prev[id] || 1) + 1,
+    }));
+  };
+
+  const decrement = (id) => {
+    setQuantities((prev) => ({
+      ...prev,
+      [id]: Math.max(1, (prev[id] || 1) - 1),
+    }));
+  };
   return (
     <div className="products">
       <ul>
@@ -29,13 +46,13 @@ const ProductCard = ({ products, addToCart }) => {
                   size="small"
                   type="number"
                   variant="outlined"
-                  value={quantity}
+                  value={quantities[product.id] || 1}
                   sx={{
                     width: "100px",
                     "& .MuiInputBase-root": { height: 30 },
                     borderRadius: "0",
                   }}
-                  onChange={(e) => setQuantity(e.target.value)}
+                  onChange={(e) => handleQuantityChange(e.target.value)}
                 />
                 <Button
                   size="small"
@@ -47,7 +64,7 @@ const ProductCard = ({ products, addToCart }) => {
                   }}
                   variant="contained"
                   color="primary"
-                  onClick={decrement}
+                  onClick={() => decrement(product.id)}
                 >
                   -
                 </Button>
@@ -61,7 +78,7 @@ const ProductCard = ({ products, addToCart }) => {
                   }}
                   variant="contained"
                   color="primary"
-                  onClick={increment}
+                  onClick={() => increment(product.id)}
                 >
                   +
                 </Button>
@@ -74,7 +91,7 @@ const ProductCard = ({ products, addToCart }) => {
                 }}
                 variant="contained"
                 color="primary"
-                onClick={() => addToCart(product, quantity)}
+                onClick={() => addToCart(product, quantities[product.id] || 1)}
               >
                 Add to Cart
               </Button>
