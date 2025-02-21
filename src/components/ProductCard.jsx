@@ -1,4 +1,7 @@
 import { useState } from "react";
+import Button from "@mui/material/Button";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import TextField from "@mui/material/TextField";
 
 const ProductCard = ({ products, addToCart }) => {
   const [quantity, setQuantity] = useState(1);
@@ -21,16 +24,60 @@ const ProductCard = ({ products, addToCart }) => {
             <p>{product.description}</p>
             <p>Price: ${product.price}</p>
             <div className="shop-buttons">
-              <input
-                type="number"
-                value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
-              />
-              <button onClick={decrement}>-</button>
-              <button onClick={increment}>+</button>
-              <button onClick={() => addToCart(product, quantity)}>
+              <div className="input-buttons">
+                <TextField
+                  size="small"
+                  type="number"
+                  variant="outlined"
+                  value={quantity}
+                  sx={{
+                    width: "100px",
+                    "& .MuiInputBase-root": { height: 30 },
+                    borderRadius: "0",
+                  }}
+                  onChange={(e) => setQuantity(e.target.value)}
+                />
+                <Button
+                  size="small"
+                  sx={{
+                    minWidth: "30px",
+                    height: "30px",
+                    padding: "2px 4px",
+                    borderRadius: "0",
+                  }}
+                  variant="contained"
+                  color="primary"
+                  onClick={decrement}
+                >
+                  -
+                </Button>
+                <Button
+                  size="small"
+                  sx={{
+                    minWidth: "30px",
+                    height: "30px",
+                    padding: "2px 4px",
+                    borderRadius: "0",
+                  }}
+                  variant="contained"
+                  color="primary"
+                  onClick={increment}
+                >
+                  +
+                </Button>
+              </div>
+              <Button
+                startIcon={<AddShoppingCartIcon />}
+                size="small"
+                sx={{
+                  fontSize: "0.8rem",
+                }}
+                variant="contained"
+                color="primary"
+                onClick={() => addToCart(product, quantity)}
+              >
                 Add to Cart
-              </button>
+              </Button>
             </div>
           </li>
         ))}
