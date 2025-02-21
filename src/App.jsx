@@ -10,6 +10,7 @@ function App() {
 
   const addToCart = (product, quantity) => {
     setCart([...cart, { ...product, quantity }]);
+    console.log("Cart: ", cart);
   };
 
   return (
