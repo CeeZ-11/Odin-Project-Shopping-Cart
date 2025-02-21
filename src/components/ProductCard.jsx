@@ -1,7 +1,14 @@
 import { useState } from "react";
-import Button from "@mui/material/Button";
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Typography,
+  Button,
+  TextField,
+} from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import TextField from "@mui/material/TextField";
 
 const ProductCard = ({ products, addToCart }) => {
   const [quantities, setQuantities] = useState({});
@@ -9,7 +16,7 @@ const ProductCard = ({ products, addToCart }) => {
   const handleQuantityChange = (id, value) => {
     setQuantities((prev) => ({
       ...prev,
-      [id]: value ? Math.max(1, parseInt(value)) : 1,
+      [id]: value ? Math.max(1, parseInt(value)) : 1, // Ensure at least 1
     }));
   };
 
@@ -26,76 +33,98 @@ const ProductCard = ({ products, addToCart }) => {
       [id]: Math.max(1, (prev[id] || 1) - 1),
     }));
   };
+
   return (
     <div className="products">
       <ul>
         {products.map((product) => (
           <li key={product.id}>
-            <img
-              src={product.image}
-              alt={product.title}
-              width="150px"
-              height="150px"
-            />
-            <h4>{product.title}</h4>
-            <p>{product.description}</p>
-            <p>Price: ${product.price}</p>
-            <div className="shop-buttons">
-              <div className="input-buttons">
-                <TextField
-                  size="small"
-                  type="number"
-                  variant="outlined"
-                  value={quantities[product.id] || 1}
-                  sx={{
-                    width: "100px",
-                    "& .MuiInputBase-root": { height: 30 },
-                    borderRadius: "0",
+            <Card
+              sx={{
+                maxWidth: 345,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                height: 500,
+                padding: 1.5,
+              }}
+            >
+              <CardMedia
+                sx={{ height: 200, objectFit: "scale-down", display: "block" }}
+                image={product.image}
+                title={product.title}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h6" component="div">
+                  {product.title}
+                </Typography>
+                <Typography variant="body2" sx={{ color: "text.secondary" }}>
+                  {product.description.length > 100
+                    ? product.description.substring(0, 150) + "..."
+                    : product.description}
+                </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{ fontWeight: "bold", marginTop: 1 }}
+                >
+                  Price: ${product.price}
+                </Typography>
+                <div
+                  className="shop-buttons"
+                  style={{
+                    marginTop: "10px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
                   }}
-                  onChange={(e) => handleQuantityChange(e.target.value)}
-                />
+                >
+                  <TextField
+                    size="small"
+                    type="number"
+                    variant="outlined"
+                    value={quantities[product.id] || 1}
+                    sx={{
+                      width: "80px",
+                      "& .MuiInputBase-root": { height: 30 },
+                      borderRadius: "4px",
+                    }}
+                    onChange={(e) =>
+                      handleQuantityChange(product.id, e.target.value)
+                    }
+                  />
+                  <Button
+                    size="small"
+                    variant="contained"
+                    color="primary"
+                    onClick={() => decrement(product.id)}
+                  >
+                    -
+                  </Button>
+                  <Button
+                    size="small"
+                    variant="contained"
+                    color="primary"
+                    onClick={() => increment(product.id)}
+                  >
+                    +
+                  </Button>
+                </div>
+              </CardContent>
+              <CardActions>
                 <Button
+                  startIcon={<AddShoppingCartIcon />}
                   size="small"
-                  sx={{
-                    minWidth: "30px",
-                    height: "30px",
-                    padding: "2px 4px",
-                    borderRadius: "0",
-                  }}
                   variant="contained"
                   color="primary"
-                  onClick={() => decrement(product.id)}
+                  fullWidth
+                  onClick={() =>
+                    addToCart(product, quantities[product.id] || 1)
+                  }
                 >
-                  -
+                  Add to Cart
                 </Button>
-                <Button
-                  size="small"
-                  sx={{
-                    minWidth: "30px",
-                    height: "30px",
-                    padding: "2px 4px",
-                    borderRadius: "0",
-                  }}
-                  variant="contained"
-                  color="primary"
-                  onClick={() => increment(product.id)}
-                >
-                  +
-                </Button>
-              </div>
-              <Button
-                startIcon={<AddShoppingCartIcon />}
-                size="small"
-                sx={{
-                  fontSize: "0.8rem",
-                }}
-                variant="contained"
-                color="primary"
-                onClick={() => addToCart(product, quantities[product.id] || 1)}
-              >
-                Add to Cart
-              </Button>
-            </div>
+              </CardActions>
+            </Card>
           </li>
         ))}
       </ul>

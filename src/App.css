@@ -42,19 +42,9 @@
   display: flex;
   min-height: 200px;
   height: 600px;
-  gap: 2rem;
+  gap: 2rem 1rem;
   flex-wrap: wrap;
   justify-content: space-evenly;
-}
-
-.products ul li {
-  border: 1px solid black;
-  max-width: 350px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
 }
 
 .shop-buttons {
@@ -63,9 +53,4 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-}
-
-.input-buttons {
-  display: flex;
-  flex-wrap: wrap;
 }
