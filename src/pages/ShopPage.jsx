@@ -17,7 +17,6 @@ export default function ShopPage({ addToCart }) {
         }));
 
         setProducts(updatedProducts);
-        console.log("response: ", updatedProducts);
       } catch (err) {
         console.log("Error: ", err);
       } finally {

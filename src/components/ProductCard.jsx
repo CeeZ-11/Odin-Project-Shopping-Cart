@@ -7,7 +7,7 @@ const ProductCard = ({ products, addToCart }) => {
   const decrement = () => setQuantity(quantity > 1 ? quantity - 1 : 1);
 
   return (
-    <div>
+    <div className="products">
       <ul>
         {products.map((product) => (
           <li key={product.id}>
@@ -20,16 +20,18 @@ const ProductCard = ({ products, addToCart }) => {
             <h4>{product.title}</h4>
             <p>{product.description}</p>
             <p>Price: ${product.price}</p>
-            <input
-              type="number"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-            />
-            <button onClick={decrement}>-</button>
-            <button onClick={increment}>+</button>
-            <button onClick={() => addToCart(product, quantity)}>
-              Add to Cart
-            </button>
+            <div className="shop-buttons">
+              <input
+                type="number"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+              />
+              <button onClick={decrement}>-</button>
+              <button onClick={increment}>+</button>
+              <button onClick={() => addToCart(product, quantity)}>
+                Add to Cart
+              </button>
+            </div>
           </li>
         ))}
       </ul>
