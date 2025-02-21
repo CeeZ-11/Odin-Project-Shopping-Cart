@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
-import Critters from "critters-webpack-plugin";
 import react from "@vitejs/plugin-react";
+import Critters from "critters";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -12,20 +12,31 @@ export default defineConfig({
   plugins: [
     react(),
     {
-      name: "configure-critters",
+      name: "vite-plugin-critters",
       apply: "build",
-      configResolved(config) {
-        if (config.build.rollupOptions.output) {
-          config.build.rollupOptions.output.plugins = [
-            new Critters({
-              preload: "swap",
-              inlineFonts: true,
-              pruneSource: true,
-            }),
-          ];
+      enforce: "post",
+      async closeBundle() {
+        const { readFile, writeFile } = await import("fs/promises");
+        const path = "./dist/index.html";
+        try {
+          let html = await readFile(path, "utf8");
+          const critters = new Critters({
+            preload: "swap",
+            inlineFonts: true,
+            pruneSource: true,
+          });
+          html = await critters.process(html);
+          await writeFile(path, html, "utf8");
+          console.log("✅ Critters applied: Critical CSS inlined!");
+        } catch (error) {
+          console.error("❌ Critters processing failed:", error);
         }
       },
     },
   ],
+  build: {
+    cssCodeSplit: true,
+    outDir: "dist",
+  },
   base: "/Odin-Project-Shopping-Cart/",
 });
