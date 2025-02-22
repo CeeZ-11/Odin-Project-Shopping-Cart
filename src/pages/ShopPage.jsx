@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ProductCard from "../components/ProductCard";
+import CircularIndeterminate from "../components/CircularLoader";
 
 export default function ShopPage({ addToCart }) {
   const [products, setProducts] = useState([]);
@@ -27,7 +28,12 @@ export default function ShopPage({ addToCart }) {
     fetchFakeProducts();
   }, []);
 
-  if (loading) return <p>Loading products...</p>;
+  if (loading)
+    return (
+      <div className="loader-container">
+        <CircularIndeterminate />
+      </div>
+    );
 
   return (
     <div className="shop-page">
