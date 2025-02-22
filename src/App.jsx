@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="App">
       <HashRouter>
-        <Navbar cartCount={cart.length} />
+        <Navbar cart={cart} />
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path="/" element={<HomePage />} />

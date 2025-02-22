@@ -10,11 +10,17 @@ const CartBadge = styled(Badge)`
   }
 `;
 
-export default function IconButtonWithBadge({ cartCount }) {
+export default function IconButtonWithBadge({ cartCount, onOpenCart }) {
   return (
-    <IconButton>
-      <ShoppingCartIcon fontSize="small" />
-      <CartBadge badgeContent={cartCount} color="primary" overlap="circular" />
-    </IconButton>
+    <>
+      <IconButton onClick={onOpenCart}>
+        <ShoppingCartIcon fontSize="small" />
+        <CartBadge
+          badgeContent={cartCount}
+          color="primary"
+          overlap="circular"
+        />
+      </IconButton>
+    </>
   );
 }
