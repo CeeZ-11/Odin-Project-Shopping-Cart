@@ -23,18 +23,20 @@ export default function Navbar({
             <Button> Shop</Button>
           </Link>
         </div>
-        <IconButtonWithBadge
-          cartCount={cart.length}
-          onOpenCart={() => setCartOpen(true)}
-        />
-        <Cart
-          open={cartOpen}
-          handleClose={() => setCartOpen(false)}
-          cart={cart}
-          incrementCartItemQuantity={incrementCartItemQuantity}
-          decrementCartItemQuantity={decrementCartItemQuantity}
-          removeFromCart={removeFromCart}
-        />
+        <div className="shopping-cart">
+          <IconButtonWithBadge
+            cartCount={cart.length}
+            onOpenCart={() => setCartOpen(true)}
+          />
+          <Cart
+            open={cartOpen}
+            handleClose={() => setCartOpen(false)}
+            cart={cart}
+            incrementCartItemQuantity={incrementCartItemQuantity}
+            decrementCartItemQuantity={decrementCartItemQuantity}
+            removeFromCart={removeFromCart}
+          />
+        </div>
       </div>
     </nav>
   );
