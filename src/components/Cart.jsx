@@ -8,6 +8,7 @@ const Cart = ({
   cart,
   incrementCartItemQuantity,
   decrementCartItemQuantity,
+  removeFromCart,
 }) => {
   return (
     <Drawer anchor="right" open={open} onClose={handleClose}>
@@ -122,7 +123,7 @@ const Cart = ({
                 </Typography>
               </Box>
 
-              <IconButton color="error">
+              <IconButton color="error" onClick={() => removeFromCart(item.id)}>
                 <DeleteIcon />
               </IconButton>
             </Box>

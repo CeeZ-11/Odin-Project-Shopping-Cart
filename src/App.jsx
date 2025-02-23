@@ -66,6 +66,10 @@ function App() {
     console.log("Cart: ", cart);
   };
 
+  const removeFromCart = (id) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+  };
+
   return (
     <div className="App">
       <HashRouter>
@@ -73,6 +77,7 @@ function App() {
           cart={cart}
           incrementCartItemQuantity={incrementCartItemQuantity}
           decrementCartItemQuantity={decrementCartItemQuantity}
+          removeFromCart={removeFromCart}
         />
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
