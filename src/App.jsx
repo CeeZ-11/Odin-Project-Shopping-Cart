@@ -30,6 +30,24 @@ function App() {
     }));
   };
 
+  const incrementCartItemQuantity = (id) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  };
+
+  const decrementCartItemQuantity = (id) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === id && item.quantity > 1
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
+      )
+    );
+  };
+
   const addToCart = (product, quantity) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === product.id);
@@ -51,7 +69,11 @@ function App() {
   return (
     <div className="App">
       <HashRouter>
-        <Navbar cart={cart} increment={increment} decrement={decrement} />
+        <Navbar
+          cart={cart}
+          incrementCartItemQuantity={incrementCartItemQuantity}
+          decrementCartItemQuantity={decrementCartItemQuantity}
+        />
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path="/" element={<HomePage />} />

@@ -4,7 +4,11 @@ import IconButtonWithBadge from "./Badge";
 import { useState } from "react";
 import Cart from "./Cart";
 
-export default function Navbar({ cart, increment, decrement }) {
+export default function Navbar({
+  cart,
+  incrementCartItemQuantity,
+  decrementCartItemQuantity,
+}) {
   const [cartOpen, setCartOpen] = useState(false);
 
   return (
@@ -26,8 +30,8 @@ export default function Navbar({ cart, increment, decrement }) {
           open={cartOpen}
           handleClose={() => setCartOpen(false)}
           cart={cart}
-          increment={increment}
-          decrement={decrement}
+          incrementCartItemQuantity={incrementCartItemQuantity}
+          decrementCartItemQuantity={decrementCartItemQuantity}
         />
       </div>
     </nav>

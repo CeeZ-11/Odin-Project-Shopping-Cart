@@ -2,7 +2,13 @@ import { Drawer, Box, Typography, Button, IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const Cart = ({ open, handleClose, cart, increment, decrement }) => {
+const Cart = ({
+  open,
+  handleClose,
+  cart,
+  incrementCartItemQuantity,
+  decrementCartItemQuantity,
+}) => {
   return (
     <Drawer anchor="right" open={open} onClose={handleClose}>
       <Box sx={{ maxWidth: 600, p: 2 }}>
@@ -70,7 +76,7 @@ const Cart = ({ open, handleClose, cart, increment, decrement }) => {
                     size="small"
                     variant="outlined"
                     color="primary"
-                    onClick={() => decrement(item.id)}
+                    onClick={() => decrementCartItemQuantity(item.id)}
                     sx={{
                       padding: "1px",
                       minWidth: "30px",
@@ -91,7 +97,7 @@ const Cart = ({ open, handleClose, cart, increment, decrement }) => {
                   <Button
                     variant="outlined"
                     color="primary"
-                    onClick={() => increment(item.id)}
+                    onClick={() => incrementCartItemQuantity(item.id)}
                     sx={{
                       padding: "1px",
                       minWidth: "30px",
