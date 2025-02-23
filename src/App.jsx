@@ -12,7 +12,7 @@ function App() {
   const handleQuantityChange = (id, value) => {
     setQuantities((prev) => ({
       ...prev,
-      [id]: value ? Math.max(1, parseInt(value)) : 1, // Ensure at least 1
+      [id]: value ? Math.max(1, parseInt(value)) : 1,
     }));
   };
 
@@ -31,7 +31,20 @@ function App() {
   };
 
   const addToCart = (product, quantity) => {
-    setCart([...cart, { ...product, quantity }]);
+    setCart((prevCart) => {
+      const existingItem = prevCart.find((item) => item.id === product.id);
+
+      if (existingItem) {
+        return prevCart.map((item) =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + quantity }
+            : item
+        );
+      } else {
+        return [...prevCart, { ...product, quantity }];
+      }
+    });
+
     console.log("Cart: ", cart);
   };
 
