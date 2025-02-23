@@ -3,7 +3,13 @@ import axios from "axios";
 import ProductCard from "../components/ProductCard";
 import CircularIndeterminate from "../components/CircularLoader";
 
-export default function ShopPage({ addToCart }) {
+export default function ShopPage({
+  addToCart,
+  quantities,
+  handleQuantityChange,
+  increment,
+  decrement,
+}) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -16,7 +22,7 @@ export default function ShopPage({ addToCart }) {
           ...product,
           quantity: 0,
         }));
-
+        console.log("Response : ", response.data);
         setProducts(updatedProducts);
       } catch (err) {
         console.log("Error: ", err);
@@ -38,7 +44,14 @@ export default function ShopPage({ addToCart }) {
   return (
     <div className="shop-page">
       <h1>Shop</h1>
-      <ProductCard products={products} addToCart={addToCart} />
+      <ProductCard
+        products={products}
+        addToCart={addToCart}
+        quantities={quantities}
+        handleQuantityChange={handleQuantityChange}
+        increment={increment}
+        decrement={decrement}
+      />
     </div>
   );
 }

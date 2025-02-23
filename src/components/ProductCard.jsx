@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Card,
   CardMedia,
@@ -10,30 +9,14 @@ import {
 } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
-const ProductCard = ({ products, addToCart }) => {
-  const [quantities, setQuantities] = useState({});
-
-  const handleQuantityChange = (id, value) => {
-    setQuantities((prev) => ({
-      ...prev,
-      [id]: value ? Math.max(1, parseInt(value)) : 1, // Ensure at least 1
-    }));
-  };
-
-  const increment = (id) => {
-    setQuantities((prev) => ({
-      ...prev,
-      [id]: (prev[id] || 1) + 1,
-    }));
-  };
-
-  const decrement = (id) => {
-    setQuantities((prev) => ({
-      ...prev,
-      [id]: Math.max(1, (prev[id] || 1) - 1),
-    }));
-  };
-
+const ProductCard = ({
+  products,
+  addToCart,
+  quantities,
+  handleQuantityChange,
+  increment,
+  decrement,
+}) => {
   return (
     <div className="products">
       <ul>
