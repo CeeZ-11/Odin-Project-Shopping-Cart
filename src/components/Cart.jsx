@@ -36,7 +36,6 @@ const Cart = ({
                   flexGrow: 1,
                   display: "flex",
                   gap: "40px",
-
                   flexWrap: "wrap",
                   maxWidth: "800px",
                 }}
