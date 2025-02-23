@@ -18,7 +18,14 @@ const CheckoutPage = ({ cart, clearCart, totalPrice }) => {
     });
   };
 
+  const isFormValid =
+    billingDetails.name.trim() !== "" &&
+    billingDetails.email.trim() !== "" &&
+    billingDetails.address.trim() !== "";
+
   const handleCheckout = () => {
+    if (!isFormValid) return;
+
     console.log("Order placed:", { billingDetails, cart });
     clearCart();
     alert("Order placed successfully!");
@@ -41,6 +48,7 @@ const CheckoutPage = ({ cart, clearCart, totalPrice }) => {
         value={billingDetails.name}
         onChange={handleChange}
         margin="dense"
+        required
       />
       <TextField
         fullWidth
@@ -49,6 +57,7 @@ const CheckoutPage = ({ cart, clearCart, totalPrice }) => {
         value={billingDetails.email}
         onChange={handleChange}
         margin="dense"
+        required
       />
       <TextField
         fullWidth
@@ -57,6 +66,7 @@ const CheckoutPage = ({ cart, clearCart, totalPrice }) => {
         value={billingDetails.address}
         onChange={handleChange}
         margin="dense"
+        required
       />
 
       <Typography variant="h6" sx={{ mt: 3, mb: 1 }}>
@@ -95,7 +105,7 @@ const CheckoutPage = ({ cart, clearCart, totalPrice }) => {
         fullWidth
         sx={{ mt: 3 }}
         onClick={handleCheckout}
-        disabled={cart.length === 0}
+        disabled={cart.length === 0 || !isFormValid}
       >
         Place Order
       </Button>
