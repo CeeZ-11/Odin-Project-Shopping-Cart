@@ -9,6 +9,7 @@ export default function Navbar({
   incrementCartItemQuantity,
   decrementCartItemQuantity,
   removeFromCart,
+  totalPrice,
 }) {
   const [cartOpen, setCartOpen] = useState(false);
 
@@ -35,6 +36,7 @@ export default function Navbar({
             incrementCartItemQuantity={incrementCartItemQuantity}
             decrementCartItemQuantity={decrementCartItemQuantity}
             removeFromCart={removeFromCart}
+            totalPrice={totalPrice}
           />
         </div>
       </div>

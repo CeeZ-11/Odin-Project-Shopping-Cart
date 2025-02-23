@@ -10,6 +10,11 @@ function App() {
   const [cart, setCart] = useState([]);
   const [quantities, setQuantities] = useState({});
 
+  const totalPrice = cart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
   const handleQuantityChange = (id, value) => {
     setQuantities((prev) => ({
       ...prev,
@@ -83,13 +88,20 @@ function App() {
           incrementCartItemQuantity={incrementCartItemQuantity}
           decrementCartItemQuantity={decrementCartItemQuantity}
           removeFromCart={removeFromCart}
+          totalPrice={totalPrice}
         />
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route
               path="/Checkout"
-              element={<CheckoutPage cart={cart} clearCart={clearCart} />}
+              element={
+                <CheckoutPage
+                  cart={cart}
+                  clearCart={clearCart}
+                  totalPrice={totalPrice}
+                />
+              }
             />
             <Route
               path="/Shop"

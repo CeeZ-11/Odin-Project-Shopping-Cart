@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const CheckoutPage = ({ cart, clearCart }) => {
+const CheckoutPage = ({ cart, clearCart, totalPrice }) => {
   const [billingDetails, setBillingDetails] = useState({
     name: "",
     email: "",
@@ -26,7 +26,7 @@ const CheckoutPage = ({ cart, clearCart }) => {
   };
 
   return (
-    <Box sx={{ maxWidth: 600, margin: "auto", padding: 3 }}>
+    <Box sx={{ maxWidth: 600, margin: "auto", padding: 15 }}>
       <Typography variant="h4" sx={{ fontWeight: "bold", mb: 2 }}>
         Checkout
       </Typography>
@@ -72,6 +72,23 @@ const CheckoutPage = ({ cart, clearCart }) => {
         ))
       )}
 
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          mt: 2,
+          p: 2,
+          borderTop: "1px solid #ddd",
+        }}
+      >
+        <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+          Total:
+        </Typography>
+        <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+          ${totalPrice.toFixed(2)}
+        </Typography>
+      </Box>
       <Button
         variant="contained"
         color="primary"

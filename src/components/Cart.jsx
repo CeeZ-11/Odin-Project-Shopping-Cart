@@ -9,6 +9,7 @@ const Cart = ({
   incrementCartItemQuantity,
   decrementCartItemQuantity,
   removeFromCart,
+  totalPrice,
 }) => {
   const navigate = useNavigate();
 
@@ -135,6 +136,23 @@ const Cart = ({
             </Box>
           ))
         )}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mt: 2,
+            p: 2,
+            borderTop: "1px solid #ddd",
+          }}
+        >
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            Total:
+          </Typography>
+          <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+            ${totalPrice.toFixed(2)}
+          </Typography>
+        </Box>
         <Box
           sx={{
             display: "flex",
