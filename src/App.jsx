@@ -4,6 +4,7 @@ import ShopPage from "./pages/ShopPage.jsx";
 import Navbar from "./components/Navbar.jsx";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { Suspense, useState } from "react";
+import CheckoutPage from "./components/CheckoutPage.jsx";
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -70,6 +71,10 @@ function App() {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
+  const clearCart = () => {
+    setCart([]);
+  };
+
   return (
     <div className="App">
       <HashRouter>
@@ -82,6 +87,10 @@ function App() {
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route
+              path="/Checkout"
+              element={<CheckoutPage cart={cart} clearCart={clearCart} />}
+            />
             <Route
               path="/Shop"
               element={

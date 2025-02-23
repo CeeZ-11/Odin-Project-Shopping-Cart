@@ -1,5 +1,5 @@
 import { Drawer, Box, Typography, Button, IconButton } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const Cart = ({
@@ -10,6 +10,13 @@ const Cart = ({
   decrementCartItemQuantity,
   removeFromCart,
 }) => {
+  const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    handleClose();
+    navigate("/Checkout");
+  };
+
   return (
     <Drawer anchor="right" open={open} onClose={handleClose}>
       <Box sx={{ maxWidth: 600, p: 2 }}>
@@ -145,7 +152,7 @@ const Cart = ({
             component={Link}
             to="/checkout"
             sx={{ flex: 1 }}
-            onClick={handleClose}
+            onClick={handleCheckout}
           >
             Proceed to Checkout
           </Button>
