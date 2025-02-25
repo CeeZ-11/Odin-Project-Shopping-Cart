@@ -3,16 +3,16 @@ import HomePage from "./pages/HomePage.jsx";
 import ShopPage from "./pages/ShopPage.jsx";
 import Navbar from "./components/Navbar.jsx";
 import { HashRouter, Route, Routes } from "react-router-dom";
-import { Suspense, useState } from "react";
+import { Suspense, useState, useMemo } from "react";
 import CheckoutPage from "./components/CheckoutPage.jsx";
 
 function App() {
   const [cart, setCart] = useState([]);
   const [quantities, setQuantities] = useState({});
 
-  const totalPrice = cart.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
+  const totalPrice = useMemo(
+    () => cart.reduce((total, item) => total + item.price * item.quantity, 0),
+    [cart]
   );
 
   const handleQuantityChange = (id, value) => {
